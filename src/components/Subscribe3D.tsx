@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useRef, useState } from 'react';
-import { Float, Text3D, Center, useMatcapTexture, Sparkles } from '@react-three/drei';
+import { Float, Text3D, Center, Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
@@ -11,8 +11,6 @@ function AnimatedSubscribeText({ isHovered }: { isHovered: boolean }) {
   const textRef = useRef<THREE.Mesh>(null);
   const { theme } = useTheme();
   const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  
-  const [matcap] = useMatcapTexture(isDark ? 'C9C9C9_ACACAC_818181_666666' : '7B5254_E9DCC7_B19986_C8AC91');
 
   useFrame((state) => {
     if (textRef.current) {
@@ -35,7 +33,13 @@ function AnimatedSubscribeText({ isHovered }: { isHovered: boolean }) {
           bevelSize={0.01}
         >
           SUBSCRIBE
-          <meshMatcapMaterial matcap={matcap} />
+          <meshStandardMaterial 
+            color={isDark ? "#ffffff" : "#333333"}
+            metalness={0.2}
+            roughness={0.3}
+            emissive={isDark ? "#110000" : "#000000"}
+            emissiveIntensity={isHovered ? 0.3 : 0.1}
+          />
         </Text3D>
       </Center>
     </Float>
@@ -60,12 +64,18 @@ function YouTubeLogo3D({ isHovered }: { isHovered: boolean }) {
           color="#ff0000" 
           emissive="#330000"
           emissiveIntensity={isHovered ? 0.5 : 0.2}
+          metalness={0.1}
+          roughness={0.2}
         />
       </mesh>
       {/* Play button triangle */}
       <mesh position={[0, 0, 0.06]}>
         <coneGeometry args={[0.08, 0.15, 3]} />
-        <meshStandardMaterial color="#ffffff" />
+        <meshStandardMaterial 
+          color="#ffffff"
+          metalness={0.1}
+          roughness={0.1}
+        />
       </mesh>
     </Float>
   );
@@ -82,6 +92,10 @@ export default function Subscribe3D() {
           camera={{ position: [0, 0, 3], fov: 75 }}
           style={{ background: 'transparent' }}
           gl={{ alpha: true, antialias: true }}
+          onCreated={(state) => {
+            // Ensure canvas doesn't cause issues
+            state.gl.setClearColor('#000000', 0);
+          }}
         >
           <Suspense fallback={null}>
             {/* Lighting */}
