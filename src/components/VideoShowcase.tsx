@@ -26,6 +26,18 @@ const defaultVideos: Video[] = [
     title: "🎵 Raat Ka Banda - Epic Edit",
     description: "Cinematic visuals with strong vibes, featuring creative editing and atmospheric storytelling.",
     embedUrl: "https://www.youtube.com/embed/xftcj39h-QY"
+  },
+  {
+    id: "F4ctUpMRP4w",
+    title: "🌊 Echoes in the Storm",
+    description: "An atmospheric masterpiece combining powerful lyrics with storm-like energy and emotional depth.",
+    embedUrl: "https://www.youtube.com/embed/F4ctUpMRP4w"
+  },
+  {
+    id: "b63MnxqG9-c",
+    title: "🎬 Nextup Studio Official Trailer",
+    description: "The official trailer showcasing the creative vision and upcoming content from Nextup Studio.",
+    embedUrl: "https://www.youtube.com/embed/b63MnxqG9-c"
   }
 ];
 
