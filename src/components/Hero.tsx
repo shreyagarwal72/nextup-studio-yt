@@ -1,9 +1,11 @@
+import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Play, Music, Gamepad2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Hero = () => {
+  const { stats, isLoading } = useYouTubeStats();
   const features = [
     {
       icon: Music,
@@ -116,17 +118,23 @@ const Hero = () => {
           <p className="text-sm text-muted-foreground mb-4">Join our growing community</p>
           <div className="flex justify-center gap-8 text-center">
             <div className="hover:scale-110 transition-transform duration-300">
-              <div className="text-2xl font-bold text-foreground">1.2K+</div>
+              <div className="text-2xl font-bold text-foreground">
+                {isLoading ? "..." : stats.subscriberCount}
+              </div>
               <div className="text-xs text-muted-foreground">Subscribers</div>
             </div>
             <div className="w-px bg-border" />
             <div className="hover:scale-110 transition-transform duration-300">
-              <div className="text-2xl font-bold text-foreground">50K+</div>
+              <div className="text-2xl font-bold text-foreground">
+                {isLoading ? "..." : stats.viewCount}
+              </div>
               <div className="text-xs text-muted-foreground">Views</div>
             </div>
             <div className="w-px bg-border" />
             <div className="hover:scale-110 transition-transform duration-300">
-              <div className="text-2xl font-bold text-foreground">25+</div>
+              <div className="text-2xl font-bold text-foreground">
+                {isLoading ? "..." : stats.videoCount}
+              </div>
               <div className="text-xs text-muted-foreground">Videos</div>
             </div>
           </div>

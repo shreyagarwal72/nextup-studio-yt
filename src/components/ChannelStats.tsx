@@ -1,65 +1,9 @@
-import { useEffect, useState } from "react";
+import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Users, Eye, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-interface ChannelStatsProps {
-  channelId?: string;
-  apiKey?: string;
-}
-
-interface Stats {
-  subscriberCount: string;
-  viewCount: string;
-  videoCount: string;
-}
-
-const ChannelStats = ({ 
-  channelId = "UCFEyuiIys7KoiZkczq4erJw", 
-  apiKey = "AIzaSyCM7WK3KYdLFh2xPOFL8amaFxgVCg3etU4" 
-}: ChannelStatsProps) => {
-  const [stats, setStats] = useState<Stats>({
-    subscriberCount: "Loading...",
-    viewCount: "Loading...",
-    videoCount: "Loading..."
-  });
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchChannelStats = async () => {
-      try {
-        const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`
-        );
-        const data = await response.json();
-        
-        if (data?.items?.length > 0) {
-          const statistics = data.items[0].statistics;
-          setStats({
-            subscriberCount: "510+",
-            viewCount: "36K+", 
-            videoCount: "95+"
-          });
-        } else {
-          setStats({
-            subscriberCount: "510+",
-            viewCount: "36K+",
-            videoCount: "95+"
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching channel stats:", error);
-        setStats({
-          subscriberCount: "510+",
-          viewCount: "36K+",
-          videoCount: "95+"
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchChannelStats();
-  }, [channelId, apiKey]);
+const ChannelStats = () => {
+  const { stats, isLoading } = useYouTubeStats();
 
   const statsItems = [
     {

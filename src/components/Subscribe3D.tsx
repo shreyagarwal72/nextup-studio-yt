@@ -1,3 +1,4 @@
+import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useRef, useState } from 'react';
 import { Float, Text3D, Center, Sparkles } from '@react-three/drei';
@@ -83,6 +84,7 @@ function YouTubeLogo3D({ isHovered }: { isHovered: boolean }) {
 
 export default function Subscribe3D() {
   const [isHovered, setIsHovered] = useState(false);
+  const { stats, isLoading } = useYouTubeStats();
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
@@ -182,7 +184,7 @@ export default function Subscribe3D() {
         </div>
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>🔥 <strong>1.2K+</strong> subscribers already joined • New videos every week</p>
+          <p>🔥 <strong>{isLoading ? "Loading..." : stats.subscriberCount}</strong> subscribers already joined • New videos every week</p>
         </div>
       </div>
     </div>
