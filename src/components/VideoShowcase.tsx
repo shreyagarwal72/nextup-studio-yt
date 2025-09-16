@@ -57,6 +57,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
         <Button 
           variant="outline" 
           className="hidden sm:flex items-center gap-2 hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 shadow-card"
+          onClick={() => window.open('https://youtube.com/playlist?list=PLA5p2Fcrkh8WjSpTTIYzeFIrscRZJQ4-T&feature=shared', '_blank')}
         >
           <Play className="h-4 w-4" />
           View All
@@ -144,6 +145,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
             <Button 
               variant="outline" 
               className="hover:bg-accent hover:text-accent-foreground hover:scale-105 transition-all duration-300"
+              onClick={() => window.open('https://youtube.com/playlist?list=PLA5p2Fcrkh8WjSpTTIYzeFIrscRZJQ4-T&feature=shared', '_blank')}
             >
               <Play className="h-4 w-4 mr-2" />
               Browse Playlist

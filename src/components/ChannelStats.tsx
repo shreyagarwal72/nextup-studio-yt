@@ -35,23 +35,23 @@ const ChannelStats = ({
         if (data?.items?.length > 0) {
           const statistics = data.items[0].statistics;
           setStats({
-            subscriberCount: Number(statistics.subscriberCount).toLocaleString(),
-            viewCount: Number(statistics.viewCount).toLocaleString(),
-            videoCount: Number(statistics.videoCount).toLocaleString()
+            subscriberCount: "510+",
+            viewCount: "36K+", 
+            videoCount: "95+"
           });
         } else {
           setStats({
-            subscriberCount: "1.2K+",
-            viewCount: "50K+",
-            videoCount: "25+"
+            subscriberCount: "510+",
+            viewCount: "36K+",
+            videoCount: "95+"
           });
         }
       } catch (error) {
         console.error("Error fetching channel stats:", error);
         setStats({
-          subscriberCount: "1.2K+",
-          viewCount: "50K+",
-          videoCount: "25+"
+          subscriberCount: "510+",
+          viewCount: "36K+",
+          videoCount: "95+"
         });
       } finally {
         setIsLoading(false);
