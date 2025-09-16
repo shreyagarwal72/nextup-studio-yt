@@ -44,7 +44,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
         
         <Button 
           variant="outline" 
-          className="hidden sm:flex items-center gap-2 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+          className="hidden sm:flex items-center gap-2 hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 shadow-card"
         >
           <Play className="h-4 w-4" />
           View All
@@ -57,9 +57,10 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
           <Card
             key={video.id}
             className={`
-              overflow-hidden bg-gradient-secondary border-border/50
-              hover:shadow-youtube hover:scale-[1.02] transition-all duration-500
-              group animate-slide-up
+              overflow-hidden bg-gradient-secondary/90 backdrop-blur-sm border-border/50
+              hover:shadow-3d hover:scale-[1.02] hover:-translate-y-1 
+              transition-all duration-500 group
+              animate-slide-up
             `}
             style={{ animationDelay: `${index * 0.3}s` }}
           >
@@ -95,7 +96,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-youtube-red hover:text-youtube-red hover:bg-youtube-red/10 transition-all duration-300"
+                  className="text-youtube-red hover:text-youtube-red hover:bg-youtube-red/10 hover:scale-105 transition-all duration-300"
                   onClick={() => window.open(`https://youtu.be/${video.id}`, '_blank')}
                 >
                   <Play className="h-4 w-4 mr-1" />
@@ -108,7 +109,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
       </div>
 
       {/* Call to Action */}
-      <Card className="p-8 text-center bg-gradient-primary/5 border-primary/20 animate-fade-in">
+      <Card className="p-8 text-center bg-gradient-primary/5 border-primary/20 animate-fade-in shadow-3d">
         <div className="space-y-4 max-w-md mx-auto">
           <h3 className="text-2xl font-bold">More Amazing Content Coming Soon!</h3>
           <p className="text-muted-foreground">
@@ -117,7 +118,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
             <Button 
-              className="bg-youtube-red hover:bg-youtube-red-hover text-white shadow-youtube animate-glow-pulse"
+              className="bg-youtube-red hover:bg-youtube-red-hover text-white shadow-youtube animate-glow-pulse hover:scale-105 transition-all duration-300"
               onClick={() => window.open('https://www.youtube.com/@nextupstudioyt', '_blank')}
             >
               <img 
@@ -128,7 +129,10 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
               Subscribe Now
             </Button>
             
-            <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground">
+            <Button 
+              variant="outline" 
+              className="hover:bg-accent hover:text-accent-foreground hover:scale-105 transition-all duration-300"
+            >
               <Play className="h-4 w-4 mr-2" />
               Browse Playlist
             </Button>

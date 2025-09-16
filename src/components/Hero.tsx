@@ -1,6 +1,7 @@
 import { Play, Music, Gamepad2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Hero = () => {
   const features = [
@@ -28,15 +29,20 @@ const Hero = () => {
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-float" />
       <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-accent-yellow/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
       
+      {/* Theme Toggle - Fixed Position */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeToggle />
+      </div>
+      
       {/* Main Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8 animate-fade-in">
         {/* Brand Logo/Title */}
         <div className="space-y-4">
-          <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-primary/10 border border-primary/20 mb-6 animate-glow-pulse">
+          <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-primary/10 border border-primary/20 mb-6 animate-glow-pulse shadow-3d">
             <Play className="h-8 w-8 text-primary" />
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-primary bg-clip-text text-transparent animate-slide-up">
+          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-primary bg-clip-text text-transparent animate-slide-up drop-shadow-2xl">
             Nextup Studio
           </h1>
           
@@ -63,14 +69,14 @@ const Hero = () => {
                 key={feature.label}
                 className={`
                   p-4 bg-card/50 border-border/30 backdrop-blur-sm
-                  hover:bg-card/80 hover:shadow-card hover:scale-105
+                  hover:bg-card/80 hover:shadow-3d hover:scale-105
                   transition-all duration-300 group
                   animate-scale-in
                 `}
                 style={{ animationDelay: `${0.8 + index * 0.1}s` }}
               >
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <Icon className={`h-6 w-6 ${feature.color} group-hover:scale-110 transition-transform`} />
+                  <Icon className={`h-6 w-6 ${feature.color} group-hover:scale-110 transition-transform drop-shadow-lg`} />
                   <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                     {feature.label}
                   </span>
@@ -84,7 +90,7 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{ animationDelay: '1s' }}>
           <Button 
             size="lg"
-            className="bg-youtube-red hover:bg-youtube-red-hover text-white shadow-youtube animate-glow-pulse px-8"
+            className="bg-youtube-red hover:bg-youtube-red-hover text-white shadow-youtube animate-glow-pulse px-8 hover:scale-105 transition-all duration-300"
             onClick={() => window.open('https://www.youtube.com/@nextupstudioyt', '_blank')}
           >
             <img 
@@ -98,7 +104,7 @@ const Hero = () => {
           <Button 
             variant="outline" 
             size="lg"
-            className="hover:bg-primary hover:text-primary-foreground border-primary/30 px-8"
+            className="hover:bg-primary hover:text-primary-foreground border-primary/30 px-8 hover:scale-105 transition-all duration-300 shadow-card"
           >
             <Play className="h-5 w-5 mr-2" />
             Watch Latest Video
@@ -109,17 +115,17 @@ const Hero = () => {
         <div className="pt-8 animate-fade-in" style={{ animationDelay: '1.2s' }}>
           <p className="text-sm text-muted-foreground mb-4">Join our growing community</p>
           <div className="flex justify-center gap-8 text-center">
-            <div>
+            <div className="hover:scale-110 transition-transform duration-300">
               <div className="text-2xl font-bold text-foreground">1.2K+</div>
               <div className="text-xs text-muted-foreground">Subscribers</div>
             </div>
             <div className="w-px bg-border" />
-            <div>
+            <div className="hover:scale-110 transition-transform duration-300">
               <div className="text-2xl font-bold text-foreground">50K+</div>
               <div className="text-xs text-muted-foreground">Views</div>
             </div>
             <div className="w-px bg-border" />
-            <div>
+            <div className="hover:scale-110 transition-transform duration-300">
               <div className="text-2xl font-bold text-foreground">25+</div>
               <div className="text-xs text-muted-foreground">Videos</div>
             </div>

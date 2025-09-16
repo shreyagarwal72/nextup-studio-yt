@@ -39,6 +39,10 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -48,6 +52,11 @@ export default {
           "red-hover": "hsl(var(--youtube-red-hover))",
         },
         "accent-yellow": "hsl(var(--accent-yellow))",
+        depth: {
+          1: "hsl(var(--depth-1))",
+          2: "hsl(var(--depth-2))",
+          3: "hsl(var(--depth-3))",
+        },
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
@@ -59,6 +68,7 @@ export default {
         "glow": "var(--shadow-glow)",
         "card": "var(--shadow-card)",
         "youtube": "var(--shadow-youtube)",
+        "3d": "var(--shadow-3d)",
       },
       borderRadius: {
         lg: "var(--radius)",

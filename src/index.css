@@ -2,30 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Nextup Studio Design System - Professional YouTube Channel Website */
+/* Nextup Studio 3D Design System - Light/Dark Mode Compatible */
 
 @layer base {
   :root {
-    /* Core Colors */
-    --background: 220 13% 8%;
-    --foreground: 210 40% 98%;
+    /* Light Mode Colors */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 8%;
     
     /* Card & Surface Colors */
-    --card: 220 13% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 98%;
+    --card-foreground: 220 13% 8%;
     
     /* YouTube Brand Colors */
     --youtube-red: 0 100% 50%;
     --youtube-red-hover: 0 100% 45%;
     
     /* Accent Colors */
-    --accent-yellow: 54 100% 62%;
-    --accent-yellow-muted: 54 100% 62% / 0.1;
+    --accent-yellow: 45 100% 50%;
+    --accent-yellow-muted: 45 100% 50% / 0.1;
     
     /* Primary Brand */
     --primary: 0 100% 50%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 0 100% 50% / 0.3;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 100% 50% / 0.2;
+    
+    /* Secondary Colors */
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 220 13% 8%;
+    
+    /* Muted Colors */
+    --muted: 220 13% 95%;
+    --muted-foreground: 220 13% 45%;
+    
+    /* Accent */
+    --accent: 45 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Status Colors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 220 13% 85%;
+    --input: 220 13% 91%;
+    --ring: 0 100% 50%;
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 8%;
+    
+    /* 3D & Depth Colors */
+    --depth-1: 0 0% 96%;
+    --depth-2: 0 0% 92%;
+    --depth-3: 0 0% 88%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 100% 50%) 0%, hsl(10 100% 45%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 98%) 0%, hsl(220 13% 95%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(45 100% 50%) 0%, hsl(35 100% 45%) 100%);
+    --gradient-background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 13% 98%) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow));
+    --shadow-card: 0 10px 30px -10px hsl(220 13% 8% / 0.1);
+    --shadow-youtube: 0 4px 20px hsl(0 100% 50% / 0.2);
+    --shadow-3d: 0 8px 32px hsl(220 13% 8% / 0.12);
+    
+    /* Animation Variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Dark Mode Colors */
+    --background: 220 13% 8%;
+    --foreground: 210 40% 98%;
+    
+    /* Card & Surface Colors */
+    --card: 220 13% 10%;
+    --card-foreground: 210 40% 98%;
     
     /* Secondary Colors */
     --secondary: 220 13% 15%;
@@ -35,35 +93,27 @@
     --muted: 220 13% 15%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    /* Accent */
-    --accent: 54 100% 62%;
-    --accent-foreground: 220 13% 8%;
-    
-    /* Status Colors */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    
     /* Border & Input */
     --border: 220 13% 20%;
     --input: 220 13% 15%;
-    --ring: 0 100% 50%;
+    
+    /* Popover */
+    --popover: 220 13% 10%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* 3D & Depth Colors */
+    --depth-1: 220 13% 12%;
+    --depth-2: 220 13% 16%;
+    --depth-3: 220 13% 20%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 100% 50%) 0%, hsl(10 100% 45%) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(220 13% 15%) 0%, hsl(220 13% 10%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(54 100% 62%) 0%, hsl(45 100% 55%) 100%);
     --gradient-background: linear-gradient(180deg, hsl(220 13% 8%) 0%, hsl(220 13% 6%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--primary-glow));
     --shadow-card: 0 10px 30px -10px hsl(220 13% 4% / 0.5);
     --shadow-youtube: 0 4px 20px hsl(0 100% 50% / 0.3);
-    
-    /* Animation Variables */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
-    --radius: 0.75rem;
+    --shadow-3d: 0 8px 32px hsl(220 13% 4% / 0.6);
   }
 }
 
