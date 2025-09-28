@@ -1,8 +1,27 @@
-# Welcome to your Lovable project
+# Nextup Studio - Official Website
 
-## Project info
+Welcome to the official website of **Nextup Studio** by Vanshu Agarwal! This is a modern, responsive web application showcasing original rap music, creative content, and engaging YouTube videos.
 
-**URL**: https://lovable.dev/projects/eaa7379c-d9c2-4829-b8ca-0a529a4488a5
+## About Nextup Studio
+
+Nextup Studio is a creative hub featuring:
+- 🎵 **Original Rap Tracks** - Fire Within, Echoes in the Storm, Raat Ka Banda, and more
+- 🎮 **Gaming Content** - Minecraft adventures and creative gameplay
+- ✨ **Creative Shorts** - Innovative short-form content
+- 📊 **Live YouTube Stats** - Real-time subscriber count, views, and video statistics
+
+**Creator**: Vanshu Agarwal  
+**YouTube Channel**: [@nextupstudioyt](https://www.youtube.com/@nextupstudioyt)  
+**Current Stats**: 510+ subscribers, 36K+ views, 95+ videos
+
+## Features
+
+- **3D Interactive Elements** - Immersive 3D scenes and animations
+- **YouTube Integration** - Live stats and video showcase
+- **Responsive Design** - Optimized for all devices
+- **Dark/Light Theme** - Toggle between themes
+- **SEO Optimized** - Complete meta tags and structured data
+- **Modern UI** - Beautiful animations and transitions
 
 ## How can I edit this code?
 
