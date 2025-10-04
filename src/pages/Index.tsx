@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import VideoShowcase from "@/components/VideoShowcase";
 import ChannelStats from "@/components/ChannelStats";
+import Achievements from "@/components/Achievements";
 import Subscribe3D from "@/components/Subscribe3D";
 
 const Index = () => {
@@ -9,6 +10,7 @@ const Index = () => {
       <Hero />
       <div className="container mx-auto px-6 py-8 space-y-12">
         <ChannelStats />
+        <Achievements />
         <VideoShowcase />
         
         {/* 3D Subscribe Section */}
