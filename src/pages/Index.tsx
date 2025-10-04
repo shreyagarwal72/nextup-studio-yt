@@ -7,14 +7,22 @@ import Subscribe3D from "@/components/Subscribe3D";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Hero />
+      <div id="home">
+        <Hero />
+      </div>
       <div className="container mx-auto px-6 py-8 space-y-12">
-        <ChannelStats />
-        <Achievements />
-        <VideoShowcase />
+        <div id="statistics">
+          <ChannelStats />
+        </div>
+        <div id="achievements">
+          <Achievements />
+        </div>
+        <div id="videos">
+          <VideoShowcase />
+        </div>
         
         {/* 3D Subscribe Section */}
-        <div className="py-16">
+        <div id="community" className="py-16">
           <Subscribe3D />
         </div>
       </div>

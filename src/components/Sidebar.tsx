@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Play, Menu, X } from "lucide-react";
+import { Home, TrendingUp, Trophy, Play, Users, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -10,14 +10,27 @@ const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navigationItems = [
-    { href: "/", label: "Home", icon: Home },
-    { href: "/youtube", label: "YouTube", icon: Play },
+    { href: "#home", label: "Home", icon: Home },
+    { href: "#statistics", label: "Statistics", icon: TrendingUp },
+    { href: "#achievements", label: "Achievements", icon: Trophy },
+    { href: "#videos", label: "Videos", icon: Play },
+    { href: "#community", label: "Community", icon: Users },
   ];
 
-  const isActive = (href: string) => {
-    if (href === "/") return location.pathname === "/";
-    return location.pathname.startsWith(href);
+  const [activeSection, setActiveSection] = useState("#home");
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setActiveSection(href);
+    setIsMobileOpen(false);
+    
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
+
+  const isActive = (href: string) => activeSection === href;
 
   return (
     <>
@@ -60,10 +73,10 @@ const Sidebar = () => {
               const active = isActive(item.href);
               
               return (
-                <Link
+                <a
                   key={item.href}
-                  to={item.href}
-                  onClick={() => setIsMobileOpen(false)}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className={`
                     relative flex items-center gap-3 px-4 py-3 rounded-xl
                     transition-all duration-500 group overflow-hidden
@@ -94,7 +107,7 @@ const Sidebar = () => {
                   {active && (
                     <div className="ml-auto w-2 h-2 bg-accent-yellow rounded-full animate-glow-pulse relative z-10" />
                   )}
-                </Link>
+                </a>
               );
             })}
           </nav>
