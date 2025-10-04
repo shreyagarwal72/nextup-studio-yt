@@ -3,7 +3,7 @@ import { Users, Eye, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const ChannelStats = () => {
-  const { stats, isLoading } = useYouTubeStats();
+  const { stats, realStats, isLoading } = useYouTubeStats();
 
   const statsItems = [
     {
@@ -31,10 +31,28 @@ const ChannelStats = () => {
 
   return (
     <Card className="p-6 bg-gradient-secondary border-border/50 animate-fade-in">
-      <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+      <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
         <div className="w-1 h-6 bg-gradient-primary rounded-full" />
         Channel Statistics
       </h3>
+      
+      {/* Real Stats Display */}
+      <div className="mb-6 p-4 bg-card/30 rounded-lg border border-border/20">
+        <p className="text-sm text-muted-foreground mb-2">Real-time Data:</p>
+        <div className="flex flex-wrap gap-4 text-sm">
+          <span className="text-foreground">
+            <strong>{realStats.subscriberCount}</strong> subscribers
+          </span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-foreground">
+            <strong>{realStats.viewCount}</strong> views
+          </span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-foreground">
+            <strong>{realStats.videoCount}</strong> videos
+          </span>
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {statsItems.map((item, index) => {

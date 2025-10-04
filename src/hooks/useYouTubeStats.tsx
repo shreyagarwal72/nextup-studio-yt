@@ -6,6 +6,12 @@ interface Stats {
   videoCount: string;
 }
 
+interface RealStats {
+  subscriberCount: string;
+  viewCount: string;
+  videoCount: string;
+}
+
 const formatApproximate = (num: number, type: 'subscribers' | 'views' | 'videos'): string => {
   if (type === 'subscribers') {
     if (num >= 1000000) return `${Math.floor(num / 100000) / 10}M+`;
@@ -36,6 +42,7 @@ const formatApproximate = (num: number, type: 'subscribers' | 'views' | 'videos'
 
 interface YouTubeStatsContextType {
   stats: Stats;
+  realStats: RealStats;
   isLoading: boolean;
 }
 
@@ -57,6 +64,11 @@ export const YouTubeStatsProvider = ({
     viewCount: "Loading...",
     videoCount: "Loading..."
   });
+  const [realStats, setRealStats] = useState<RealStats>({
+    subscriberCount: "Loading...",
+    viewCount: "Loading...",
+    videoCount: "Loading..."
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -69,6 +81,11 @@ export const YouTubeStatsProvider = ({
         
         if (data?.items?.length > 0) {
           const statistics = data.items[0].statistics;
+          setRealStats({
+            subscriberCount: Number(statistics.subscriberCount).toLocaleString(),
+            viewCount: Number(statistics.viewCount).toLocaleString(),
+            videoCount: Number(statistics.videoCount).toLocaleString()
+          });
           setStats({
             subscriberCount: formatApproximate(Number(statistics.subscriberCount), 'subscribers'),
             viewCount: formatApproximate(Number(statistics.viewCount), 'views'),
@@ -97,7 +114,7 @@ export const YouTubeStatsProvider = ({
   }, [channelId, apiKey]);
 
   return (
-    <YouTubeStatsContext.Provider value={{ stats, isLoading }}>
+    <YouTubeStatsContext.Provider value={{ stats, realStats, isLoading }}>
       {children}
     </YouTubeStatsContext.Provider>
   );
