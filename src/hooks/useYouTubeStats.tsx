@@ -6,6 +6,34 @@ interface Stats {
   videoCount: string;
 }
 
+const formatApproximate = (num: number, type: 'subscribers' | 'views' | 'videos'): string => {
+  if (type === 'subscribers') {
+    if (num >= 1000000) return `${Math.floor(num / 100000) / 10}M+`;
+    if (num >= 10000) return `${Math.floor(num / 1000)}K+`;
+    if (num >= 1000) return `${Math.floor(num / 100) / 10}K+`;
+    if (num >= 100) return `${Math.floor(num / 100) * 100}+`;
+    return `${Math.floor(num / 10) * 10}+`;
+  }
+  
+  if (type === 'views') {
+    if (num >= 100000) {
+      const lakhs = num / 100000;
+      return `${Math.floor(lakhs * 10) / 10} Lakh+`;
+    }
+    if (num >= 10000) return `${Math.floor(num / 1000)}K+`;
+    if (num >= 1000) return `${Math.floor(num / 100) / 10}K+`;
+    return `${Math.floor(num / 100) * 100}+`;
+  }
+  
+  if (type === 'videos') {
+    if (num >= 100) return `${Math.floor(num / 10) * 10}+`;
+    if (num >= 10) return `${Math.floor(num / 5) * 5}+`;
+    return `${num}+`;
+  }
+  
+  return `${num}+`;
+};
+
 interface YouTubeStatsContextType {
   stats: Stats;
   isLoading: boolean;
@@ -42,9 +70,9 @@ export const YouTubeStatsProvider = ({
         if (data?.items?.length > 0) {
           const statistics = data.items[0].statistics;
           setStats({
-            subscriberCount: Number(statistics.subscriberCount).toLocaleString(),
-            viewCount: Number(statistics.viewCount).toLocaleString(),
-            videoCount: Number(statistics.videoCount).toLocaleString()
+            subscriberCount: formatApproximate(Number(statistics.subscriberCount), 'subscribers'),
+            viewCount: formatApproximate(Number(statistics.viewCount), 'views'),
+            videoCount: formatApproximate(Number(statistics.videoCount), 'videos')
           });
         } else {
           setStats({
