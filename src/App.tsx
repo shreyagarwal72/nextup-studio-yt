@@ -20,9 +20,9 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <div className="flex min-h-screen bg-gradient-background transition-colors duration-300">
+            <div className="flex min-h-screen w-full bg-gradient-background transition-colors duration-300">
               <Sidebar />
-              <main className="flex-1 lg:ml-64">
+              <main className="flex-1 w-full overflow-x-hidden">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/youtube" element={<YouTubePage />} />
