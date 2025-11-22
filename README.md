@@ -1,27 +1,42 @@
 # Nextup Studio - Official Website
 
-Welcome to the official website of **Nextup Studio** by Vanshu Agarwal! This is a modern, responsive web application showcasing original rap music, creative content, and engaging YouTube videos.
+Welcome to the official website of **Nextup Studio** by Vanshu Agarwal! This is a modern, immersive web application showcasing original rap music, gaming content, and viral YouTube videos.
 
 ## About Nextup Studio
 
-Nextup Studio is a creative hub featuring:
+Nextup Studio is a creative hub where music meets content creation, featuring:
 - 🎵 **Original Rap Tracks** - Fire Within, Echoes in the Storm, Raat Ka Banda, and more
-- 🎮 **Gaming Content** - Minecraft adventures and creative gameplay
-- ✨ **Creative Shorts** - Innovative short-form content
-- 📊 **Live YouTube Stats** - Real-time subscriber count, views, and video statistics
+- 🎮 **Minecraft Content** - Epic adventures and creative gameplay
+- ✨ **Creative Shorts** - Viral short-form content with 31K+ views
+- 🏆 **Milestones** - Celebrating 500+ subscribers achieved on August 9, 2025
+- 📊 **Live YouTube Stats** - Real-time channel statistics and analytics
 
 **Creator**: Vanshu Agarwal  
 **YouTube Channel**: [@nextupstudioyt](https://www.youtube.com/@nextupstudioyt)  
-**Current Stats**: 510+ subscribers, 36K+ views, 95+ videos
+**Website**: [myyoutube-cyan.vercel.app](https://myyoutube-cyan.vercel.app)
 
-## Features
+### Key Achievements
+- 🎯 **500 Subscribers Milestone** - Reached on August 9, 2025
+- 🔥 **Viral Short** - Most viewed video with 31K+ views
+- 📈 **Growing Community** - 371K+ total views across 121+ videos
 
-- **3D Interactive Elements** - Immersive 3D scenes and animations
-- **YouTube Integration** - Live stats and video showcase
-- **Responsive Design** - Optimized for all devices
-- **Dark/Light Theme** - Toggle between themes
-- **SEO Optimized** - Complete meta tags and structured data
-- **Modern UI** - Beautiful animations and transitions
+## Website Features
+
+### Interactive Sections
+- **🏠 Home (Hero)** - Eye-catching landing section with animated 3D elements
+- **📊 Channel Statistics** - Real-time YouTube subscriber count, views, and video count
+- **🏆 Achievements** - Showcasing milestones including 500 subscribers and viral videos
+- **🎬 Video Showcase** - Featured content and latest uploads
+- **👥 Community** - Interactive 3D subscribe section to join the community
+
+### Technical Features
+- **3D Interactive Elements** - WebGL-powered 3D scenes and smooth animations
+- **YouTube API Integration** - Live channel statistics and data
+- **Responsive Design** - Seamlessly adapts to desktop, tablet, and mobile
+- **Dark/Light Theme** - System-aware theme with manual toggle
+- **SEO Optimized** - Complete meta tags, Open Graph, and JSON-LD structured data
+- **Modern UI/UX** - Smooth transitions, hover effects, and engaging animations
+- **Performance Optimized** - Fast loading with optimized assets and code splitting
 
 ## How can I edit this code?
 
