@@ -38,10 +38,10 @@ const Achievements = () => {
                 Most Viewed Short
               </h4>
               <p className="text-sm text-muted-foreground mb-2">
-                <span className="font-bold text-lg text-youtube-red">31k</span> views
+                <span className="font-bold text-lg text-youtube-red">50K+</span> views
               </p>
               <a 
-                href="https://youtube.com/shorts/V4HbQ6CMHxE?si=Mg1tBWzID_20wc8r"
+                href="https://youtube.com/shorts/67X4SxImDuM"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-sm text-primary hover:underline"
@@ -57,7 +57,7 @@ const Achievements = () => {
       <div className="mt-6">
         <div className="aspect-video rounded-lg overflow-hidden border border-border/30">
           <iframe
-            src="https://www.youtube.com/embed/V4HbQ6CMHxE"
+            src="https://www.youtube.com/embed/67X4SxImDuM"
             title="Most Viewed Short"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
