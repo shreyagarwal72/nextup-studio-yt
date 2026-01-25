@@ -6,6 +6,7 @@ import { useFrame } from '@react-three/fiber';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { useGlassEffect } from './GlassEffectProvider';
 import * as THREE from 'three';
 
 function AnimatedSubscribeText({ isHovered }: { isHovered: boolean }) {
@@ -85,9 +86,13 @@ function YouTubeLogo3D({ isHovered }: { isHovered: boolean }) {
 export default function Subscribe3D() {
   const [isHovered, setIsHovered] = useState(false);
   const { stats, isLoading } = useYouTubeStats();
+  const { isGlassEnabled } = useGlassEffect();
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto">
+    <div className={`
+      relative w-full max-w-2xl mx-auto rounded-3xl overflow-hidden
+      ${isGlassEnabled ? "glass-card glass-glow" : ""}
+    `}>
       {/* 3D Scene Background */}
       <div className="absolute inset-0 h-64">
         <Canvas
@@ -95,7 +100,6 @@ export default function Subscribe3D() {
           style={{ background: 'transparent' }}
           gl={{ alpha: true, antialias: true }}
           onCreated={(state) => {
-            // Ensure canvas doesn't cause issues
             state.gl.setClearColor('#000000', 0);
           }}
         >
@@ -122,7 +126,7 @@ export default function Subscribe3D() {
       </div>
 
       {/* Interactive Button Overlay */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-64 space-y-6">
+      <div className="relative z-10 flex flex-col items-center justify-center h-64 space-y-6 px-6">
         <div className="text-center space-y-2">
           <h3 className="text-2xl md:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Join the Journey
@@ -137,12 +141,15 @@ export default function Subscribe3D() {
             size="lg"
             className={`
               relative overflow-hidden px-8 py-4
-              bg-youtube-red hover:bg-youtube-red-hover 
               text-white font-bold text-lg
               shadow-youtube hover:shadow-glow
               transform hover:scale-105 active:scale-95
               transition-all duration-300 ease-out
               animate-glow-pulse
+              ${isGlassEnabled 
+                ? "bg-youtube-red/90 hover:bg-youtube-red backdrop-blur-sm" 
+                : "bg-youtube-red hover:bg-youtube-red-hover"
+              }
             `}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -173,9 +180,12 @@ export default function Subscribe3D() {
             className={`
               px-8 py-4 font-semibold text-lg
               border-2 hover:border-primary
-              hover:bg-primary/10 hover:scale-105
+              hover:scale-105
               transition-all duration-300 ease-out
-              backdrop-blur-sm
+              ${isGlassEnabled 
+                ? "glass-button hover:bg-primary/20" 
+                : "hover:bg-primary/10 backdrop-blur-sm"
+              }
             `}
           >
             <Play className="h-5 w-5 mr-2" />
