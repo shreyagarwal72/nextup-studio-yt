@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GlassEffectProvider } from "@/components/GlassEffectProvider";
+import { GlassCursor } from "@/components/GlassCursor";
 import { YouTubeStatsProvider } from "@/hooks/useYouTubeStats";
 import Index from "./pages/Index";
 import YouTubePage from "./pages/YouTube";
@@ -21,6 +22,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <GlassCursor />
             <BrowserRouter>
               <div className="flex min-h-screen w-full bg-gradient-background transition-colors duration-500">
                 <Sidebar />

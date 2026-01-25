@@ -24,7 +24,7 @@ const Achievements = () => {
           p-4 rounded-lg border border-border/30 
           hover:shadow-card transition-all duration-300 group
           ${isGlassEnabled 
-            ? "glass-panel liquid-ripple glass-shimmer glass-glow" 
+            ? "glass-panel liquid-ripple glass-shimmer glass-glow glass-depth glass-elastic glass-holographic glass-icon-float" 
             : "bg-card/50 hover:bg-card/80"
           }
         `}>
@@ -48,7 +48,7 @@ const Achievements = () => {
           p-4 rounded-lg border border-border/30 
           hover:shadow-card transition-all duration-300 group
           ${isGlassEnabled 
-            ? "glass-panel liquid-ripple glass-shimmer glass-glow" 
+            ? "glass-panel liquid-ripple glass-shimmer glass-glow glass-depth glass-elastic glass-holographic glass-icon-float" 
             : "bg-card/50 hover:bg-card/80"
           }
         `}>
