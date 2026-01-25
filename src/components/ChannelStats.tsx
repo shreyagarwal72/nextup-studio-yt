@@ -1,9 +1,11 @@
 import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Users, Eye, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useGlassEffect } from "@/components/GlassEffectProvider";
 
 const ChannelStats = () => {
   const { stats, isLoading } = useYouTubeStats();
+  const { isGlassEnabled } = useGlassEffect();
 
   const statsItems = [
     {
@@ -30,7 +32,13 @@ const ChannelStats = () => {
   ];
 
   return (
-    <Card className="p-6 bg-gradient-secondary border-border/50 animate-fade-in">
+    <Card className={`
+      p-6 border-border/50 animate-fade-in
+      ${isGlassEnabled 
+        ? "glass-card liquid-morph" 
+        : "bg-gradient-secondary"
+      }
+    `}>
       <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
         <div className="w-1 h-6 bg-gradient-primary rounded-full" />
         Channel Statistics
@@ -43,13 +51,17 @@ const ChannelStats = () => {
             <div
               key={item.label}
               className={`
-                p-4 rounded-lg bg-card/50 border border-border/30
-                hover:bg-card/80 hover:shadow-card transition-all duration-300
+                p-4 rounded-lg border border-border/30
+                hover:shadow-card transition-all duration-300
                 group cursor-pointer animate-slide-up
+                ${isGlassEnabled 
+                  ? "glass-panel liquid-ripple glass-shimmer glass-glow" 
+                  : "bg-card/50 hover:bg-card/80"
+                }
               `}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 relative z-10">
                 <div className={`p-2 rounded-lg ${item.bgColor}`}>
                   <Icon className={`h-5 w-5 ${item.color}`} />
                 </div>
@@ -58,7 +70,7 @@ const ChannelStats = () => {
                 )}
               </div>
               
-              <div className="space-y-1">
+              <div className="space-y-1 relative z-10">
                 <p className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {item.value}
                 </p>

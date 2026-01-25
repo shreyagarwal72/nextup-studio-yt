@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Play, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useGlassEffect } from "@/components/GlassEffectProvider";
 
 interface Video {
   id: string;
@@ -42,6 +43,8 @@ const defaultVideos: Video[] = [
 ];
 
 const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
+  const { isGlassEnabled } = useGlassEffect();
+
   return (
     <section className="space-y-6">
       <div className="flex items-center justify-between">
@@ -56,7 +59,14 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
         
         <Button 
           variant="outline" 
-          className="hidden sm:flex items-center gap-2 hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 shadow-card"
+          className={`
+            hidden sm:flex items-center gap-2 
+            hover:scale-105 transition-all duration-300
+            ${isGlassEnabled 
+              ? "glass-button hover:bg-primary/20" 
+              : "hover:bg-primary hover:text-primary-foreground shadow-card"
+            }
+          `}
           onClick={() => window.open('https://youtube.com/playlist?list=PLA5p2Fcrkh8WjSpTTIYzeFIrscRZJQ4-T&feature=shared', '_blank')}
         >
           <Play className="h-4 w-4" />
@@ -70,10 +80,14 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
           <Card
             key={video.id}
             className={`
-              overflow-hidden bg-gradient-secondary/90 backdrop-blur-sm border-border/50
+              overflow-hidden border-border/50
               hover:shadow-3d hover:scale-[1.02] hover:-translate-y-1 
               transition-all duration-500 group
               animate-slide-up
+              ${isGlassEnabled 
+                ? "glass-card glass-glow" 
+                : "bg-gradient-secondary/90 backdrop-blur-sm"
+              }
             `}
             style={{ animationDelay: `${index * 0.3}s` }}
           >
@@ -90,7 +104,10 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </div>
             
-            <div className="p-6 space-y-4">
+            <div className={`
+              p-6 space-y-4 relative z-10
+              ${isGlassEnabled ? "bg-transparent" : ""}
+            `}>
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                   {video.title}
@@ -100,7 +117,10 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
                 </p>
               </div>
               
-              <div className="flex items-center justify-between pt-2 border-t border-border/30">
+              <div className={`
+                flex items-center justify-between pt-2 
+                ${isGlassEnabled ? "border-t border-white/10" : "border-t border-border/30"}
+              `}>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <div className="w-2 h-2 bg-youtube-red rounded-full animate-pulse" />
                   <span>Nextup Studio</span>
@@ -122,8 +142,14 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
       </div>
 
       {/* Call to Action */}
-      <Card className="p-8 text-center bg-gradient-primary/5 border-primary/20 animate-fade-in shadow-3d">
-        <div className="space-y-4 max-w-md mx-auto">
+      <Card className={`
+        p-8 text-center border-primary/20 animate-fade-in shadow-3d
+        ${isGlassEnabled 
+          ? "glass-card glass-glow" 
+          : "bg-gradient-primary/5"
+        }
+      `}>
+        <div className="space-y-4 max-w-md mx-auto relative z-10">
           <h3 className="text-2xl font-bold">More Amazing Content Coming Soon!</h3>
           <p className="text-muted-foreground">
             These are just highlights of our creative journey. Stay tuned for more original music, gaming content, and creative shorts.
@@ -131,7 +157,14 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
             <Button 
-              className="bg-youtube-red hover:bg-youtube-red-hover text-white shadow-youtube animate-glow-pulse hover:scale-105 transition-all duration-300"
+              className={`
+                text-white shadow-youtube animate-glow-pulse 
+                hover:scale-105 transition-all duration-300
+                ${isGlassEnabled 
+                  ? "bg-youtube-red/90 hover:bg-youtube-red backdrop-blur-sm" 
+                  : "bg-youtube-red hover:bg-youtube-red-hover"
+                }
+              `}
               onClick={() => window.open('https://www.youtube.com/@nextupstudioyt', '_blank')}
             >
               <img 
@@ -144,7 +177,13 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
             
             <Button 
               variant="outline" 
-              className="hover:bg-accent hover:text-accent-foreground hover:scale-105 transition-all duration-300"
+              className={`
+                hover:scale-105 transition-all duration-300
+                ${isGlassEnabled 
+                  ? "glass-button hover:bg-accent/20" 
+                  : "hover:bg-accent hover:text-accent-foreground"
+                }
+              `}
               onClick={() => window.open('https://youtube.com/playlist?list=PLA5p2Fcrkh8WjSpTTIYzeFIrscRZJQ4-T&feature=shared', '_blank')}
             >
               <Play className="h-4 w-4 mr-2" />
