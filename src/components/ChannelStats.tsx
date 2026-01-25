@@ -55,7 +55,7 @@ const ChannelStats = () => {
                 hover:shadow-card transition-all duration-300
                 group cursor-pointer animate-slide-up
                 ${isGlassEnabled 
-                  ? "glass-panel liquid-ripple glass-shimmer glass-glow" 
+                  ? "glass-panel liquid-ripple glass-shimmer glass-glow glass-depth glass-tilt glass-trail glass-icon-float glass-breathe" 
                   : "bg-card/50 hover:bg-card/80"
                 }
               `}

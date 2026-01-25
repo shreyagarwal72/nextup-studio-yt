@@ -85,7 +85,7 @@ const VideoShowcase = ({ videos = defaultVideos }: VideoShowcaseProps) => {
               transition-all duration-500 group
               animate-slide-up
               ${isGlassEnabled 
-                ? "glass-card glass-glow" 
+                ? "glass-card glass-glow glass-tilt glass-trail glass-border-pulse" 
                 : "bg-gradient-secondary/90 backdrop-blur-sm"
               }
             `}

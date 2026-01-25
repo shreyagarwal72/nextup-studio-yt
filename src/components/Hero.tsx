@@ -113,7 +113,7 @@ const Hero = () => {
                   transition-all duration-300 group
                   animate-scale-in
                   ${isGlassEnabled 
-                    ? "glass-card liquid-ripple glass-shimmer glass-glow" 
+                    ? "glass-card liquid-ripple glass-shimmer glass-glow glass-depth glass-holographic glass-icon-float glass-sparkle" 
                     : "bg-card/50 backdrop-blur-sm hover:bg-card/80"
                   }
                 `}
