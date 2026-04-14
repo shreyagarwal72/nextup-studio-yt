@@ -55,14 +55,14 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-40 w-64 
+          fixed inset-y-0 left-0 z-40 w-64 shrink-0
           ${isGlassEnabled 
             ? "glass-panel border-r-0" 
             : "bg-gradient-secondary/95 backdrop-blur-xl border-r border-border/50"
           }
           transform transition-all duration-500 ease-out
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0 lg:static lg:inset-0
+          lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen
         `}
       >
         <div className="flex h-full flex-col">
