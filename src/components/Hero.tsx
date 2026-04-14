@@ -29,7 +29,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden px-4 sm:px-6">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-background" />
       <div className={`
@@ -56,7 +56,7 @@ const Hero = () => {
       )}
       
       {/* Header Controls - Fixed Position */}
-      <div className="absolute top-6 right-6 z-20 flex items-center gap-3">
+      <div className="absolute top-4 right-4 z-20 flex items-center gap-2 sm:top-6 sm:right-6 sm:gap-3">
         <GlassToggle />
         <ThemeToggle />
       </div>
@@ -101,7 +101,7 @@ const Hero = () => {
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.6s' }}>
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.6s' }}>
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
