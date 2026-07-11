@@ -1,86 +1,55 @@
 import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Users, Eye, TrendingUp } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { useGlassEffect } from "@/components/GlassEffectProvider";
 
 const ChannelStats = () => {
   const { stats, isLoading } = useYouTubeStats();
-  const { isGlassEnabled } = useGlassEffect();
 
-  const statsItems = [
-    {
-      label: "Subscribers",
-      value: stats.subscriberCount,
-      icon: Users,
-      color: "text-youtube-red",
-      bgColor: "bg-youtube-red/10"
-    },
-    {
-      label: "Total Views",
-      value: stats.viewCount,
-      icon: Eye,
-      color: "text-accent-yellow",
-      bgColor: "bg-accent-yellow/10"
-    },
-    {
-      label: "Videos",
-      value: stats.videoCount,
-      icon: TrendingUp,
-      color: "text-primary",
-      bgColor: "bg-primary/10"
-    }
+  const items = [
+    { label: "Subscribers", value: stats.subscriberCount, icon: Users },
+    { label: "Total Views", value: stats.viewCount, icon: Eye },
+    { label: "Videos", value: stats.videoCount, icon: TrendingUp },
   ];
 
   return (
-    <Card className={`
-      p-6 border-border/50 animate-fade-in
-      ${isGlassEnabled 
-        ? "glass-card liquid-morph" 
-        : "bg-gradient-secondary"
-      }
-    `}>
-      <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-        <div className="w-1 h-6 bg-gradient-primary rounded-full" />
-        Channel Statistics
-      </h3>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {statsItems.map((item, index) => {
+    <section className="neu-card p-8 md:p-10 animate-fade-in">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="neu-icon-well w-12 h-12">
+          <TrendingUp className="h-5 w-5 text-primary" />
+        </div>
+        <div>
+          <h3 className="font-display font-bold text-2xl text-foreground">
+            Channel Statistics
+          </h3>
+          <p className="text-sm text-muted-foreground">Live from YouTube</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {items.map((item, i) => {
           const Icon = item.icon;
           return (
             <div
               key={item.label}
-              className={`
-                p-4 rounded-lg border border-border/30
-                hover:shadow-card transition-all duration-300
-                group cursor-pointer animate-slide-up
-                ${isGlassEnabled 
-                  ? "glass-panel liquid-ripple glass-shimmer glass-glow glass-depth glass-tilt glass-trail glass-icon-float glass-breathe" 
-                  : "bg-card/50 hover:bg-card/80"
-                }
-              `}
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className="neu-card neu-card-hover p-6 animate-slide-up"
+              style={{ animationDelay: `${i * 120}ms` }}
             >
-              <div className="flex items-center justify-between mb-3 relative z-10">
-                <div className={`p-2 rounded-lg ${item.bgColor}`}>
-                  <Icon className={`h-5 w-5 ${item.color}`} />
+              <div className="flex items-start justify-between mb-6">
+                <div className="neu-icon-well w-12 h-12">
+                  <Icon className="h-5 w-5 text-primary" />
                 </div>
                 {isLoading && (
-                  <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
                 )}
               </div>
-              
-              <div className="space-y-1 relative z-10">
-                <p className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  {item.value}
-                </p>
-                <p className="text-sm text-muted-foreground">{item.label}</p>
-              </div>
+              <p className="font-display font-extrabold text-3xl text-foreground">
+                {item.value}
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">{item.label}</p>
             </div>
           );
         })}
       </div>
-    </Card>
+    </section>
   );
 };
 

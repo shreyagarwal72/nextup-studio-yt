@@ -1,200 +1,56 @@
 import { useYouTubeStats } from "@/hooks/useYouTubeStats";
-import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef, useState } from 'react';
-import { Float, Text3D, Center, Sparkles } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
-import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
-import { useTheme } from './ThemeProvider';
-import { useGlassEffect } from './GlassEffectProvider';
-import * as THREE from 'three';
-
-function AnimatedSubscribeText({ isHovered }: { isHovered: boolean }) {
-  const textRef = useRef<THREE.Mesh>(null);
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-  useFrame((state) => {
-    if (textRef.current) {
-      textRef.current.rotation.y = Math.sin(state.clock.elapsedTime) * 0.1;
-      textRef.current.scale.setScalar(isHovered ? 1.1 : 1);
-    }
-  });
-
-  return (
-    <Float speed={3} rotationIntensity={0.2} floatIntensity={0.1}>
-      <Center>
-        <Text3D
-          ref={textRef}
-          font="/fonts/helvetiker_regular.typeface.json"
-          size={0.3}
-          height={0.08}
-          curveSegments={12}
-          bevelEnabled
-          bevelThickness={0.01}
-          bevelSize={0.01}
-        >
-          SUBSCRIBE
-          <meshStandardMaterial 
-            color={isDark ? "#ffffff" : "#333333"}
-            metalness={0.2}
-            roughness={0.3}
-            emissive={isDark ? "#110000" : "#000000"}
-            emissiveIntensity={isHovered ? 0.3 : 0.1}
-          />
-        </Text3D>
-      </Center>
-    </Float>
-  );
-}
-
-function YouTubeLogo3D({ isHovered }: { isHovered: boolean }) {
-  const logoRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (logoRef.current) {
-      logoRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 2) * 0.1;
-      logoRef.current.scale.setScalar(isHovered ? 1.2 : 1);
-    }
-  });
-
-  return (
-    <Float speed={2} rotationIntensity={0.3} floatIntensity={0.2} position={[-1.5, 0, 0.5]}>
-      <mesh ref={logoRef}>
-        <boxGeometry args={[0.4, 0.3, 0.1]} />
-        <meshStandardMaterial 
-          color="#ff0000" 
-          emissive="#330000"
-          emissiveIntensity={isHovered ? 0.5 : 0.2}
-          metalness={0.1}
-          roughness={0.2}
-        />
-      </mesh>
-      {/* Play button triangle */}
-      <mesh position={[0, 0, 0.06]}>
-        <coneGeometry args={[0.08, 0.15, 3]} />
-        <meshStandardMaterial 
-          color="#ffffff"
-          metalness={0.1}
-          roughness={0.1}
-        />
-      </mesh>
-    </Float>
-  );
-}
+import { Play, Youtube, Sparkles } from "lucide-react";
 
 export default function Subscribe3D() {
-  const [isHovered, setIsHovered] = useState(false);
   const { stats, isLoading } = useYouTubeStats();
-  const { isGlassEnabled } = useGlassEffect();
 
   return (
-    <div className={`
-      relative w-full max-w-2xl mx-auto rounded-3xl overflow-hidden
-      ${isGlassEnabled ? "glass-card glass-glow" : ""}
-    `}>
-      {/* 3D Scene Background */}
-      <div className="absolute inset-0 h-64">
-        <Canvas
-          camera={{ position: [0, 0, 3], fov: 75 }}
-          style={{ background: 'transparent' }}
-          gl={{ alpha: true, antialias: true }}
-          onCreated={(state) => {
-            state.gl.setClearColor('#000000', 0);
-          }}
-        >
-          <Suspense fallback={null}>
-            {/* Lighting */}
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[5, 5, 5]} intensity={1} />
-            <pointLight position={[0, 0, 2]} intensity={0.8} color="#ff0000" />
-            
-            {/* 3D Elements */}
-            <AnimatedSubscribeText isHovered={isHovered} />
-            <YouTubeLogo3D isHovered={isHovered} />
-            
-            {/* Sparkles Effect */}
-            <Sparkles 
-              count={30} 
-              scale={3} 
-              size={1.5} 
-              speed={0.3}
-              color={isHovered ? "#ffeb3b" : "#ff0000"}
-            />
-          </Suspense>
-        </Canvas>
-      </div>
+    <div className="relative max-w-3xl mx-auto animate-fade-in">
+      <div className="neu-card p-10 md:p-14 text-center relative overflow-hidden">
+        {/* Decorative concentric wells */}
+        <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full neu-inset opacity-70 pointer-events-none" />
+        <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full neu-raised opacity-60 pointer-events-none" />
 
-      {/* Interactive Button Overlay */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-64 space-y-6 px-6">
-        <div className="text-center space-y-2">
-          <h3 className="text-2xl md:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Join the Journey
-          </h3>
-          <p className="text-muted-foreground">
-            Subscribe for the latest tracks, gaming content, and creative shorts
+        <div className="relative z-10 space-y-6">
+          <div className="neu-icon-well w-20 h-20 mx-auto animate-neu-float">
+            <Sparkles className="h-8 w-8 text-primary" />
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="font-display font-extrabold text-3xl md:text-4xl text-foreground tracking-tight">
+              Join the Journey
+            </h3>
+            <p className="text-muted-foreground max-w-md mx-auto">
+              Subscribe for the latest tracks, gaming content, and creative shorts.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+            <button
+              onClick={() =>
+                window.open("https://www.youtube.com/@nextupstudioyt", "_blank")
+              }
+              className="neu-btn-primary px-8 py-4 inline-flex items-center gap-3 font-semibold text-base"
+            >
+              <Youtube className="h-5 w-5" />
+              Subscribe Now
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://www.youtube.com/@nextupstudioyt", "_blank")
+              }
+              className="neu-btn px-8 py-4 inline-flex items-center gap-3 font-semibold text-base text-primary"
+            >
+              <Play className="h-4 w-4 fill-primary" /> Latest Video
+            </button>
+          </div>
+
+          <p className="text-sm text-muted-foreground pt-2">
+            <strong className="text-foreground font-semibold">
+              {isLoading ? "…" : stats.subscriberCount}
+            </strong>{" "}
+            subscribers already joined · New videos every week
           </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button 
-            size="lg"
-            className={`
-              relative overflow-hidden px-8 py-4
-              text-white font-bold text-lg
-              shadow-youtube hover:shadow-glow
-              transform hover:scale-105 active:scale-95
-              transition-all duration-300 ease-out
-              animate-glow-pulse
-              ${isGlassEnabled 
-                ? "bg-youtube-red/90 hover:bg-youtube-red backdrop-blur-sm" 
-                : "bg-youtube-red hover:bg-youtube-red-hover"
-              }
-            `}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={() => window.open('https://www.youtube.com/@nextupstudioyt', '_blank')}
-          >
-            {/* Animated Background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-youtube-red to-red-600 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            
-            <div className="relative flex items-center gap-3">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" 
-                alt="YouTube" 
-                className="h-6 w-6 brightness-0 invert" 
-              />
-              <span>Subscribe Now</span>
-              <div className={`
-                w-2 h-2 rounded-full bg-white
-                animate-pulse
-                ${isHovered ? 'scale-150' : 'scale-100'}
-                transition-transform duration-300
-              `} />
-            </div>
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            size="lg"
-            className={`
-              px-8 py-4 font-semibold text-lg
-              border-2 hover:border-primary
-              hover:scale-105
-              transition-all duration-300 ease-out
-              ${isGlassEnabled 
-                ? "glass-button hover:bg-primary/20" 
-                : "hover:bg-primary/10 backdrop-blur-sm"
-              }
-            `}
-          >
-            <Play className="h-5 w-5 mr-2" />
-            Latest Video
-          </Button>
-        </div>
-
-        <div className="text-center text-sm text-muted-foreground">
-          <p>🔥 <strong>{isLoading ? "Loading..." : stats.subscriberCount}</strong> subscribers already joined • New videos every week</p>
         </div>
       </div>
     </div>
