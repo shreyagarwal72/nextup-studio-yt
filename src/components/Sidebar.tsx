@@ -1,170 +1,113 @@
-import { Home, TrendingUp, Trophy, Play, Users, Menu, X } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { GlassToggle } from "@/components/GlassToggle";
-import Scene3D from "@/components/Scene3D";
-import { useGlassEffect } from "@/components/GlassEffectProvider";
+import { Home, TrendingUp, Trophy, Play, Users, Menu, X, Youtube } from "lucide-react";
+import { useState, useEffect } from "react";
+
+const navigationItems = [
+  { href: "#home", label: "Home", icon: Home },
+  { href: "#statistics", label: "Statistics", icon: TrendingUp },
+  { href: "#achievements", label: "Achievements", icon: Trophy },
+  { href: "#videos", label: "Videos", icon: Play },
+  { href: "#community", label: "Community", icon: Users },
+];
 
 const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { isGlassEnabled } = useGlassEffect();
-
-  const navigationItems = [
-    { href: "#home", label: "Home", icon: Home },
-    { href: "#statistics", label: "Statistics", icon: TrendingUp },
-    { href: "#achievements", label: "Achievements", icon: Trophy },
-    { href: "#videos", label: "Videos", icon: Play },
-    { href: "#community", label: "Community", icon: Users },
-  ];
-
   const [activeSection, setActiveSection] = useState("#home");
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileOpen]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setActiveSection(href);
     setIsMobileOpen(false);
-    
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  const isActive = (href: string) => activeSection === href;
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <Button
-        variant="secondary"
-        size="icon"
-        className={`
-          fixed top-4 left-4 z-50 lg:hidden 
-          ${isGlassEnabled 
-            ? "glass-panel" 
-            : "bg-card/80 backdrop-blur-sm"
-          }
-          shadow-3d hover:scale-110 transition-all duration-300
-        `}
+      {/* Mobile trigger */}
+      <button
+        aria-label={isMobileOpen ? "Close menu" : "Open menu"}
         onClick={() => setIsMobileOpen(!isMobileOpen)}
+        className="neu-btn fixed top-4 left-4 z-50 lg:hidden h-12 w-12 flex items-center justify-center"
       >
         {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </Button>
+      </button>
 
-      {/* Sidebar */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-40 w-64 shrink-0
-          ${isGlassEnabled 
-            ? "glass-panel border-r-0" 
-            : "bg-gradient-secondary/95 backdrop-blur-xl border-r border-border/50"
-          }
-          transform transition-all duration-500 ease-out
+          fixed inset-y-0 left-0 z-40 w-72 shrink-0 bg-background
+          transform transition-transform duration-500 ease-out
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen
         `}
       >
-        <div className="flex h-full flex-col">
-          {/* 3D Logo Section */}
-          <div className={`
-            relative h-48 overflow-hidden
-            ${isGlassEnabled 
-              ? "border-b border-white/10" 
-              : "border-b border-border/50"
-            }
-          `}>
-            <Scene3D className="absolute inset-0" />
-            <div className="absolute bottom-4 left-0 right-0 text-center z-10">
-              <h2 className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Nextup Studio
-              </h2>
-              <p className="text-xs text-muted-foreground">by Vanshu Agarwal</p>
+        <div className="flex h-full flex-col p-6 gap-8">
+          {/* Brand */}
+          <div className="neu-card p-6 text-center animate-fade-in">
+            <div className="neu-icon-well w-16 h-16 mx-auto mb-4">
+              <Youtube className="h-7 w-7 text-primary" />
             </div>
+            <h2 className="font-display font-extrabold text-lg text-foreground">
+              Nextup Studio
+            </h2>
+            <p className="text-xs text-muted-foreground mt-1">by Vanshu Agarwal</p>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-3">
-            {navigationItems.map((item, index) => {
+          {/* Nav */}
+          <nav className="flex-1 space-y-3">
+            {navigationItems.map((item, i) => {
               const Icon = item.icon;
-              const active = isActive(item.href);
-              
+              const active = activeSection === item.href;
               return (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className={`
-                    relative flex items-center gap-3 px-4 py-3 rounded-xl
-                    transition-all duration-500 group overflow-hidden
-                    ${isGlassEnabled ? "liquid-ripple glass-shimmer" : ""}
-                    hover:shadow-3d hover:scale-105
-                    animate-slide-up
-                    ${active 
-                      ? isGlassEnabled
-                        ? "glass-panel bg-primary/20 text-primary-foreground shadow-youtube scale-105" 
-                        : "bg-gradient-primary text-primary-foreground shadow-youtube scale-105"
-                      : isGlassEnabled
-                        ? "glass-button text-foreground hover:text-primary"
-                        : "text-foreground hover:bg-depth-2 hover:text-primary backdrop-blur-sm"
-                    }
+                    group flex items-center gap-4 px-4 py-3 rounded-2xl
+                    transition-all duration-300 ease-out animate-slide-up
+                    focus-visible:outline-none focus-visible:ring-2
+                    focus-visible:ring-primary focus-visible:ring-offset-2
+                    focus-visible:ring-offset-background
+                    ${active
+                      ? "neu-inset text-primary"
+                      : "text-foreground neu-raised-sm hover:-translate-y-0.5 hover:neu-raised"}
                   `}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ animationDelay: `${i * 80}ms` }}
                 >
-                  {/* 3D Background Effect */}
-                  <div className={`
-                    absolute inset-0 rounded-xl transition-all duration-300
-                    ${active 
-                      ? "bg-gradient-to-br from-primary/30 to-transparent" 
-                      : "bg-gradient-to-br from-transparent to-depth-1 opacity-0 group-hover:opacity-100"
-                    }
-                  `} />
-                  
-                  <Icon className={`h-5 w-5 transition-all duration-300 relative z-10 ${
-                    active ? "scale-110 drop-shadow-lg" : "group-hover:scale-105"
-                  }`} />
-                  
-                  <span className="font-medium relative z-10">{item.label}</span>
-                  
+                  <span
+                    className={`
+                      h-9 w-9 rounded-xl flex items-center justify-center
+                      transition-all duration-300
+                      ${active ? "neu-inset-deep text-primary" : "neu-raised-sm text-muted-foreground group-hover:text-foreground"}
+                    `}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="font-medium text-sm">{item.label}</span>
                   {active && (
-                    <div className="ml-auto w-2 h-2 bg-accent-yellow rounded-full animate-glow-pulse relative z-10" />
+                    <span className="ml-auto h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_hsl(var(--primary))]" />
                   )}
                 </a>
               );
             })}
           </nav>
 
-          {/* Theme & Glass Toggle & Footer */}
-          <div className={`
-            p-4 space-y-4 
-            ${isGlassEnabled 
-              ? "border-t border-white/10" 
-              : "border-t border-border/50"
-            }
-          `}>
-            <div className="flex justify-center gap-3">
-              <GlassToggle />
-              <ThemeToggle />
-            </div>
-            
-            <div className="text-xs text-muted-foreground text-center animate-fade-in">
-              <p>© 2024 Nextup Studio</p>
-              <p className="mt-1">Powered by creativity</p>
-            </div>
+          {/* Footer */}
+          <div className="neu-card p-4 text-center text-xs text-muted-foreground">
+            <p className="font-medium text-foreground/80">© 2026 Nextup Studio</p>
+            <p className="mt-1">Powered by creativity</p>
           </div>
         </div>
       </aside>
 
-      {/* Mobile Overlay */}
       {isMobileOpen && (
-        <div
-          className={`
-            fixed inset-0 z-30 lg:hidden transition-opacity duration-300
-            ${isGlassEnabled 
-              ? "bg-background/60 backdrop-blur-md" 
-              : "bg-background/80 backdrop-blur-sm"
-            }
-          `}
+        <button
+          aria-label="Close menu overlay"
+          className="fixed inset-0 z-30 lg:hidden bg-background/70 backdrop-blur-sm"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
