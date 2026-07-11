@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useYouTubeStats } from "@/hooks/useYouTubeStats";
 import { Play, Music, Gamepad2, Sparkles, Youtube } from "lucide-react";
 
@@ -7,12 +8,82 @@ const features = [
   { icon: Sparkles, label: "Shorts" },
 ];
 
+const useParallax = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const reduced = useRef(false);
+
+  useEffect(() => {
+    reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced.current) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrollY(window.scrollY));
+    };
+    const onMove = (e: PointerEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() =>
+        setMouse({ x: (e.clientX - cx) / cx, y: (e.clientY - cy) / cy })
+      );
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointermove", onMove);
+    };
+  }, []);
+
+  return { scrollY: reduced.current ? 0 : scrollY, mouse: reduced.current ? { x: 0, y: 0 } : mouse };
+};
+
 const Hero = () => {
   const { stats, isLoading } = useYouTubeStats();
+  const { scrollY, mouse } = useParallax();
+
+  // Decorative parallax offsets — subtle
+  const orbA = {
+    transform: `translate3d(${mouse.x * 18}px, ${scrollY * -0.15 + mouse.y * 12}px, 0)`,
+  };
+  const orbB = {
+    transform: `translate3d(${mouse.x * -14}px, ${scrollY * -0.25 + mouse.y * -10}px, 0)`,
+  };
+  const orbC = {
+    transform: `translate3d(${mouse.x * 8}px, ${scrollY * -0.08 + mouse.y * 6}px, 0)`,
+  };
+  const contentShift = {
+    transform: `translate3d(0, ${scrollY * -0.05}px, 0)`,
+  };
 
   return (
-    <section className="relative px-4 sm:px-8 pt-16 pb-12 lg:pt-24 lg:pb-16">
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-10 animate-fade-in">
+    <section className="relative px-4 sm:px-8 pt-16 pb-12 lg:pt-24 lg:pb-16 overflow-hidden">
+      {/* Parallax decorative wells */}
+      <div
+        aria-hidden
+        style={orbA}
+        className="absolute -top-24 -left-16 w-72 h-72 rounded-full neu-inset opacity-70 pointer-events-none will-change-transform"
+      />
+      <div
+        aria-hidden
+        style={orbB}
+        className="absolute top-1/3 -right-24 w-80 h-80 rounded-full neu-raised opacity-60 pointer-events-none will-change-transform"
+      />
+      <div
+        aria-hidden
+        style={orbC}
+        className="absolute bottom-0 left-1/3 w-56 h-56 rounded-full neu-inset opacity-50 pointer-events-none will-change-transform"
+      />
+
+      <div
+        style={contentShift}
+        className="relative z-10 max-w-5xl mx-auto text-center space-y-10 animate-fade-in will-change-transform"
+      >
         {/* Icon well */}
         <div className="neu-icon-well w-20 h-20 mx-auto animate-neu-float">
           <Play className="h-8 w-8 text-primary fill-primary" />
@@ -89,10 +160,19 @@ const Hero = () => {
               { label: "Videos", value: stats.videoCount },
             ].map((s) => (
               <div key={s.label} className="text-center">
-                <div className="font-display font-bold text-2xl md:text-3xl text-foreground">
-                  {isLoading ? "…" : s.value}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+                {isLoading ? (
+                  <>
+                    <div className="h-8 w-16 mx-auto rounded-lg neu-inset-sm animate-pulse" />
+                    <div className="h-3 w-14 mx-auto mt-2 rounded neu-inset-sm animate-pulse" />
+                  </>
+                ) : (
+                  <>
+                    <div className="font-display font-bold text-2xl md:text-3xl text-foreground">
+                      {s.value}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+                  </>
+                )}
               </div>
             ))}
           </div>
