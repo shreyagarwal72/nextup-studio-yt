@@ -9,61 +9,64 @@
 
 @layer base {
   :root {
-    /* Cool clay base */
-    --background: 216 25% 90%;          /* #E0E5EC */
-    --foreground: 212 15% 28%;          /* #3D4852 */
+    /* Warm clay base (blush-tinted grey) */
+    --background: 0 15% 90%;            /* #E8E1E1 */
+    --foreground: 210 15% 26%;          /* warm dark blue-grey */
 
-    --card: 216 25% 90%;
-    --card-foreground: 212 15% 28%;
+    --card: 0 15% 90%;
+    --card-foreground: 210 15% 26%;
 
-    --popover: 216 25% 90%;
-    --popover-foreground: 212 15% 28%;
+    --popover: 0 15% 90%;
+    --popover-foreground: 210 15% 26%;
 
-    --primary: 244 100% 69%;            /* #6C63FF violet */
+    --primary: 354 82% 57%;             /* #E63946 signal red */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 244 100% 76%;
+    --primary-glow: 354 100% 71%;       /* #FF6B7A */
 
-    --secondary: 216 25% 90%;
-    --secondary-foreground: 212 15% 28%;
+    --secondary: 0 15% 90%;
+    --secondary-foreground: 210 15% 26%;
 
-    --muted: 216 25% 90%;
-    --muted-foreground: 220 9% 46%;     /* #6B7280 AA */
+    --muted: 0 15% 90%;
+    --muted-foreground: 0 6% 46%;
 
-    --accent: 176 51% 46%;              /* #38B2AC teal */
+    --accent: 27 87% 67%;               /* #F4A261 warm coral */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 55%;
+    --destructive: 354 82% 57%;
     --destructive-foreground: 0 0% 100%;
 
     /* No borders in neumorphism */
-    --border: 216 25% 90%;
-    --input: 216 25% 90%;
-    --ring: 244 100% 69%;
+    --border: 0 15% 90%;
+    --input: 0 15% 90%;
+    --ring: 354 82% 57%;
 
-    /* Legacy tokens kept so residual references don't break */
-    --youtube-red: 0 82% 60%;
-    --youtube-red-hover: 0 82% 54%;
-    --accent-yellow: 45 100% 55%;
+    /* Legacy tokens unified with the red primary */
+    --youtube-red: 354 82% 57%;
+    --youtube-red-hover: 354 82% 50%;
+    --accent-yellow: 27 87% 67%;
 
     --radius: 1rem;
 
-    /* Neumorphic shadow ingredients */
-    --neu-light: 255, 255, 255;         /* rgb */
-    --neu-dark: 163, 177, 198;          /* rgb */
+    /* Warm neumorphic shadow ingredients */
+    --neu-light: 255, 245, 245;
+    --neu-dark: 189, 170, 170;
+
+    /* Primary as rgb for tinted washes */
+    --primary-rgb: 230, 57, 70;
   }
 
   /* Neumorphism is a light-mode discipline — keep dark identical for now */
   .dark {
-    --background: 216 25% 90%;
-    --foreground: 212 15% 28%;
-    --card: 216 25% 90%;
-    --card-foreground: 212 15% 28%;
-    --popover: 216 25% 90%;
-    --popover-foreground: 212 15% 28%;
-    --muted: 216 25% 90%;
-    --muted-foreground: 220 9% 46%;
-    --border: 216 25% 90%;
-    --input: 216 25% 90%;
+    --background: 0 15% 90%;
+    --foreground: 210 15% 26%;
+    --card: 0 15% 90%;
+    --card-foreground: 210 15% 26%;
+    --popover: 0 15% 90%;
+    --popover-foreground: 210 15% 26%;
+    --muted: 0 15% 90%;
+    --muted-foreground: 0 6% 46%;
+    --border: 0 15% 90%;
+    --input: 0 15% 90%;
   }
 
   * {
@@ -77,6 +80,31 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'DM Sans', system-ui, sans-serif;
+    background-image:
+      radial-gradient(1200px 800px at 12% -10%, rgba(255, 240, 240, 0.9), transparent 60%),
+      radial-gradient(900px 700px at 110% 110%, rgba(var(--primary-rgb), 0.08), transparent 55%),
+      radial-gradient(700px 600px at 80% 10%, rgba(244, 162, 97, 0.06), transparent 60%);
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  /* Fine grain overlay — tactile texture, not visible pattern */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 160px 160px;
+  }
+
+  /* Keep app content above the grain */
+  body > #root {
+    position: relative;
+    z-index: 1;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
@@ -84,6 +112,7 @@
     letter-spacing: -0.02em;
   }
 }
+
 
 /* ============================================
    Neumorphic utility surfaces
@@ -130,11 +159,44 @@
 
   /* Composite cards & buttons */
   .neu-card {
+    position: relative;
     @apply bg-background rounded-[32px] neu-raised transition-all duration-300 ease-out;
+  }
+  /* Sculpted highlight line — reads as molded material, not stamped */
+  .neu-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 35%,
+      rgba(var(--primary-rgb), 0.06) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
   }
   .neu-card-hover {
     @apply hover:-translate-y-1 hover:neu-raised-hover;
   }
+
+  /* Accent aura — soft red glow orb for backgrounds */
+  .neu-accent-aura {
+    background: radial-gradient(
+      circle at center,
+      rgba(var(--primary-rgb), 0.28) 0%,
+      rgba(var(--primary-rgb), 0.08) 45%,
+      transparent 75%
+    );
+    filter: blur(8px);
+  }
+
 
   .neu-btn {
     @apply bg-background text-foreground rounded-2xl neu-raised

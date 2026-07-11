@@ -77,8 +77,9 @@ const Hero = () => {
       <div
         aria-hidden
         style={orbC}
-        className="absolute bottom-0 left-1/3 w-56 h-56 rounded-full neu-inset opacity-50 pointer-events-none will-change-transform"
+        className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full neu-accent-aura pointer-events-none will-change-transform"
       />
+
 
       <div
         style={contentShift}
