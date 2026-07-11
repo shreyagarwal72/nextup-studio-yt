@@ -159,11 +159,44 @@
 
   /* Composite cards & buttons */
   .neu-card {
+    position: relative;
     @apply bg-background rounded-[32px] neu-raised transition-all duration-300 ease-out;
+  }
+  /* Sculpted highlight line — reads as molded material, not stamped */
+  .neu-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 35%,
+      rgba(var(--primary-rgb), 0.06) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
   }
   .neu-card-hover {
     @apply hover:-translate-y-1 hover:neu-raised-hover;
   }
+
+  /* Accent aura — soft red glow orb for backgrounds */
+  .neu-accent-aura {
+    background: radial-gradient(
+      circle at center,
+      rgba(var(--primary-rgb), 0.28) 0%,
+      rgba(var(--primary-rgb), 0.08) 45%,
+      transparent 75%
+    );
+    filter: blur(8px);
+  }
+
 
   .neu-btn {
     @apply bg-background text-foreground rounded-2xl neu-raised
