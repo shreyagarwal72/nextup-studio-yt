@@ -216,7 +216,7 @@ const VideoShowcase = ({
         !error && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {videos.map((v, i) => (
-              <VideoCard key={v.id} v={v} i={i} />
+              <VideoCard key={v.id} v={v} i={i} onPlay={setActive} />
             ))}
           </div>
         )
