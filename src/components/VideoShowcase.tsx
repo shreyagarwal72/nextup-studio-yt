@@ -61,52 +61,45 @@ const VideoSkeleton = ({ delay = 0 }: { delay?: number }) => (
   </div>
 );
 
-const VideoCard = ({ v, i }: { v: Video; i: number }) => {
-  const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
+const VideoCard = ({ v, i, onPlay }: { v: Video; i: number; onPlay: (v: Video) => void }) => {
+  const [imgFailed, setImgFailed] = useState(false);
+  const thumb = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
 
   return (
     <article
-      className="neu-card neu-card-hover p-4 animate-slide-up"
+      className="neu-card neu-card-hover p-4 animate-slide-up group"
       style={{ animationDelay: `${i * 120}ms` }}
     >
-      <div className="neu-inset-deep rounded-3xl p-2">
-        <div className="relative aspect-video rounded-2xl overflow-hidden">
-          {!loaded && !failed && (
-            <div className="absolute inset-0 neu-inset-sm animate-pulse flex items-center justify-center">
-              <Play className="h-6 w-6 text-muted-foreground/40" />
-            </div>
-          )}
-          {failed ? (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
-              <div className="neu-icon-well w-11 h-11">
-                <VideoOff className="h-4 w-4 text-muted-foreground" />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Preview didn't load
-              </p>
-              <a
-                href={`https://youtu.be/${v.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="neu-btn px-3 py-1.5 text-xs font-medium inline-flex items-center gap-1.5 text-primary"
-              >
-                Open on YouTube <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
-          ) : (
-            <iframe
-              src={v.embedUrl}
-              title={v.title}
-              allowFullScreen
+      <button
+        type="button"
+        onClick={() => onPlay(v)}
+        aria-label={`Play ${v.title}`}
+        className="block w-full text-left neu-inset-deep rounded-3xl p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-3xl"
+      >
+        <div className="relative aspect-video rounded-2xl overflow-hidden bg-background">
+          {!imgFailed ? (
+            <img
+              src={thumb}
+              alt={v.title}
               loading="lazy"
-              onLoad={() => setLoaded(true)}
-              onError={() => setFailed(true)}
-              className="w-full h-full border-0"
+              onError={() => setImgFailed(true)}
+              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="neu-icon-well w-14 h-14">
+                <VideoOff className="h-5 w-5 text-muted-foreground" />
+              </div>
+            </div>
           )}
+          {/* Play overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-background/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="neu-btn-primary h-16 w-16 rounded-full flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300">
+              <Play className="h-6 w-6 fill-primary-foreground text-primary-foreground ml-0.5" />
+            </div>
+          </div>
         </div>
-      </div>
+      </button>
       <div className="p-4 space-y-3">
         <h3 className="font-display font-bold text-lg text-foreground line-clamp-1">
           {v.title}
@@ -121,7 +114,7 @@ const VideoCard = ({ v, i }: { v: Video; i: number }) => {
             Nextup Studio
           </span>
           <button
-            onClick={() => window.open(`https://youtu.be/${v.id}`, "_blank")}
+            onClick={() => onPlay(v)}
             className="neu-btn px-4 py-2 text-xs font-medium inline-flex items-center gap-1.5 text-primary"
           >
             <Play className="h-3 w-3 fill-primary" /> Watch
