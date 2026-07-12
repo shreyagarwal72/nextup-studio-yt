@@ -55,19 +55,62 @@
     --primary-rgb: 230, 57, 70;
   }
 
-  /* Neumorphism is a light-mode discipline — keep dark identical for now */
+  /* Dark mode — warm charcoal clay, red still primary */
   .dark {
-    --background: 0 15% 90%;
-    --foreground: 210 15% 26%;
-    --card: 0 15% 90%;
-    --card-foreground: 210 15% 26%;
-    --popover: 0 15% 90%;
-    --popover-foreground: 210 15% 26%;
-    --muted: 0 15% 90%;
-    --muted-foreground: 0 6% 46%;
-    --border: 0 15% 90%;
-    --input: 0 15% 90%;
+    --background: 220 14% 11%;          /* #181A1F warm charcoal */
+    --foreground: 30 15% 92%;           /* warm off-white */
+
+    --card: 220 14% 11%;
+    --card-foreground: 30 15% 92%;
+
+    --popover: 220 14% 11%;
+    --popover-foreground: 30 15% 92%;
+
+    --primary: 354 88% 62%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 354 100% 74%;
+
+    --secondary: 220 14% 11%;
+    --secondary-foreground: 30 15% 92%;
+
+    --muted: 220 14% 11%;
+    --muted-foreground: 30 6% 65%;
+
+    --accent: 27 87% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 354 82% 57%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 11%;
+    --input: 220 14% 11%;
+    --ring: 354 88% 62%;
+
+    /* Deeper shadows, subtle warm highlight */
+    --neu-light: 42, 45, 52;
+    --neu-dark: 6, 7, 10;
+
+    --primary-rgb: 240, 70, 85;
   }
+
+  html {
+    color-scheme: light dark;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* Smooth theme crossfade */
+  body, .neu-card, .neu-btn, .neu-btn-primary, .neu-icon-well, .neu-input,
+  [class*="neu-raised"], [class*="neu-inset"] {
+    transition:
+      background-color 500ms ease,
+      color 300ms ease,
+      box-shadow 500ms ease,
+      border-color 300ms ease;
+  }
+
 
   * {
     @apply border-border;
