@@ -132,6 +132,7 @@ const VideoShowcase = ({
   onRetry,
 }: VideoShowcaseProps) => {
   const isEmpty = !isLoading && !error && videos.length === 0;
+  const [active, setActive] = useState<Video | null>(null);
 
   return (
     <section className="space-y-8 animate-fade-in">
