@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Play, ExternalLink, Youtube, AlertTriangle, RefreshCw, VideoOff } from "lucide-react";
+import VideoModal from "./VideoModal";
 
 interface Video {
   id: string;
