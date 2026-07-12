@@ -252,6 +252,12 @@ const VideoShowcase = ({
           </div>
         </div>
       )}
+
+      <VideoModal
+        videoId={active?.id ?? null}
+        title={active?.title}
+        onClose={() => setActive(null)}
+      />
     </section>
   );
 };
