@@ -55,19 +55,62 @@
     --primary-rgb: 230, 57, 70;
   }
 
-  /* Neumorphism is a light-mode discipline — keep dark identical for now */
+  /* Dark mode — warm charcoal clay, red still primary */
   .dark {
-    --background: 0 15% 90%;
-    --foreground: 210 15% 26%;
-    --card: 0 15% 90%;
-    --card-foreground: 210 15% 26%;
-    --popover: 0 15% 90%;
-    --popover-foreground: 210 15% 26%;
-    --muted: 0 15% 90%;
-    --muted-foreground: 0 6% 46%;
-    --border: 0 15% 90%;
-    --input: 0 15% 90%;
+    --background: 220 14% 11%;          /* #181A1F warm charcoal */
+    --foreground: 30 15% 92%;           /* warm off-white */
+
+    --card: 220 14% 11%;
+    --card-foreground: 30 15% 92%;
+
+    --popover: 220 14% 11%;
+    --popover-foreground: 30 15% 92%;
+
+    --primary: 354 88% 62%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 354 100% 74%;
+
+    --secondary: 220 14% 11%;
+    --secondary-foreground: 30 15% 92%;
+
+    --muted: 220 14% 11%;
+    --muted-foreground: 30 6% 65%;
+
+    --accent: 27 87% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 354 82% 57%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 11%;
+    --input: 220 14% 11%;
+    --ring: 354 88% 62%;
+
+    /* Deeper shadows, subtle warm highlight */
+    --neu-light: 42, 45, 52;
+    --neu-dark: 6, 7, 10;
+
+    --primary-rgb: 240, 70, 85;
   }
+
+  html {
+    color-scheme: light dark;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* Smooth theme crossfade */
+  body, .neu-card, .neu-btn, .neu-btn-primary, .neu-icon-well, .neu-input,
+  [class*="neu-raised"], [class*="neu-inset"] {
+    transition:
+      background-color 500ms ease,
+      color 300ms ease,
+      box-shadow 500ms ease,
+      border-color 300ms ease;
+  }
+
 
   * {
     @apply border-border;
@@ -81,8 +124,8 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'DM Sans', system-ui, sans-serif;
     background-image:
-      radial-gradient(1200px 800px at 12% -10%, rgba(255, 240, 240, 0.9), transparent 60%),
-      radial-gradient(900px 700px at 110% 110%, rgba(var(--primary-rgb), 0.08), transparent 55%),
+      radial-gradient(1200px 800px at 12% -10%, rgba(var(--neu-light), 0.35), transparent 60%),
+      radial-gradient(900px 700px at 110% 110%, rgba(var(--primary-rgb), 0.10), transparent 55%),
       radial-gradient(700px 600px at 80% 10%, rgba(244, 162, 97, 0.06), transparent 60%);
     background-attachment: fixed;
     position: relative;
@@ -300,4 +343,73 @@
     to   { opacity: 1; transform: scale(1); }
   }
   .animate-scale-in { animation: scale-in 0.5s ease-out both; }
+
+  /* Shimmer sweep — for skeletons & premium hover states */
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(var(--neu-light), 0.4) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.2s ease-in-out infinite;
+  }
+
+  /* Gradient shift — for accent text */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  .text-gradient-primary {
+    background: linear-gradient(
+      120deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary-glow)) 50%,
+      hsl(var(--accent)) 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease-in-out infinite;
+  }
+
+  /* Pulse ring — live indicator */
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.5); }
+    70%  { box-shadow: 0 0 0 12px rgba(var(--primary-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0); }
+  }
+  .animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+
+  /* Icon spin-in on toggle */
+  @keyframes spin-in {
+    from { transform: rotate(-180deg) scale(0.4); opacity: 0; }
+    to   { transform: rotate(0) scale(1); opacity: 1; }
+  }
+  .animate-spin-in { animation: spin-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+  /* Stagger helper */
+  .stagger > * { animation: slide-up 0.7s ease-out both; }
+  .stagger > *:nth-child(1) { animation-delay: 60ms; }
+  .stagger > *:nth-child(2) { animation-delay: 120ms; }
+  .stagger > *:nth-child(3) { animation-delay: 180ms; }
+  .stagger > *:nth-child(4) { animation-delay: 240ms; }
+  .stagger > *:nth-child(5) { animation-delay: 300ms; }
+  .stagger > *:nth-child(6) { animation-delay: 360ms; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 }
+
