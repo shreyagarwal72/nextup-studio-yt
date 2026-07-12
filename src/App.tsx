@@ -34,6 +34,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </YouTubeStatsProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
