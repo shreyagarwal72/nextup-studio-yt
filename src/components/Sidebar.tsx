@@ -13,6 +13,15 @@ const navigationItems = [
 const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
+  const { theme, setTheme } = useTheme();
+
+  const cycleTheme = () => {
+    const next = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
+    setTheme(next);
+  };
+
+  const ThemeIcon = theme === "light" ? Sun : theme === "dark" ? Moon : Monitor;
+  const themeLabel = theme === "light" ? "Light" : theme === "dark" ? "Dark" : "System";
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
