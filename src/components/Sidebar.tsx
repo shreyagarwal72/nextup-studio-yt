@@ -1,5 +1,6 @@
-import { Home, TrendingUp, Trophy, Play, Users, Menu, X, Youtube } from "lucide-react";
+import { Home, TrendingUp, Trophy, Play, Users, Menu, X, Youtube, Sun, Moon, Monitor } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const navigationItems = [
   { href: "#home", label: "Home", icon: Home },
