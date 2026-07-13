@@ -11,18 +11,18 @@ const Index = () => {
         <Hero />
       </div>
       <div className="container mx-auto px-6 py-8 space-y-12">
-        <div id="statistics">
+        <div id="statistics" className="reveal">
           <ChannelStats />
         </div>
-        <div id="achievements">
+        <div id="achievements" className="reveal">
           <Achievements />
         </div>
-        <div id="videos">
+        <div id="videos" className="reveal">
           <VideoShowcase />
         </div>
-        
+
         {/* 3D Subscribe Section */}
-        <div id="community" className="py-16">
+        <div id="community" className="reveal py-16">
           <Subscribe3D />
         </div>
       </div>
