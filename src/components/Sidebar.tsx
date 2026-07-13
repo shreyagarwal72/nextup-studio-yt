@@ -76,43 +76,60 @@ const Sidebar = () => {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
+                  data-active={active}
                   className={`
-                    group flex items-center gap-4 px-4 py-3 rounded-2xl
-                    transition-all duration-300 ease-out animate-slide-up
+                    group relative flex items-center gap-4 px-4 py-3 rounded-2xl
+                    overflow-hidden sheen
+                    transition-all duration-500 ease-out animate-blur-in
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-primary focus-visible:ring-offset-2
                     focus-visible:ring-offset-background
                     ${active
                       ? "neu-inset text-primary"
-                      : "text-foreground neu-raised-sm hover:-translate-y-0.5 hover:neu-raised"}
+                      : "text-foreground neu-raised-sm hover:-translate-y-0.5 hover:translate-x-1 hover:neu-raised"}
                   `}
-                  style={{ animationDelay: `${i * 80}ms` }}
+                  style={{ animationDelay: `${i * 90}ms` }}
                 >
+                  {/* Active side indicator */}
+                  <span
+                    aria-hidden
+                    className={`
+                      absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-r-full
+                      bg-gradient-to-b from-primary to-primary-glow
+                      transition-all duration-500 ease-out
+                      ${active ? "h-8 opacity-100" : "h-0 opacity-0"}
+                    `}
+                  />
                   <span
                     className={`
-                      h-9 w-9 rounded-xl flex items-center justify-center
-                      transition-all duration-300
-                      ${active ? "neu-inset-deep text-primary" : "neu-raised-sm text-muted-foreground group-hover:text-foreground"}
+                      h-9 w-9 rounded-xl flex items-center justify-center shrink-0
+                      transition-all duration-500
+                      ${active
+                        ? "neu-inset-deep text-primary scale-110"
+                        : "neu-raised-sm text-muted-foreground group-hover:text-primary group-hover:scale-110"}
                     `}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 group-hover:animate-wiggle" />
                   </span>
-                  <span className="font-medium text-sm">{item.label}</span>
+                  <span className="font-medium text-sm relative z-10">
+                    {item.label}
+                  </span>
                   {active && (
-                    <span className="ml-auto h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_hsl(var(--primary))]" />
+                    <span className="ml-auto h-2 w-2 rounded-full bg-primary animate-pulse-ring shadow-[0_0_10px_hsl(var(--primary))]" />
                   )}
                 </a>
               );
             })}
           </nav>
 
+
           {/* Theme toggle */}
           <button
             onClick={cycleTheme}
             aria-label={`Switch theme (current: ${themeLabel})`}
-            className="neu-btn w-full flex items-center gap-3 px-4 py-3 group"
+            className="neu-btn sheen w-full flex items-center gap-3 px-4 py-3 group hover:-translate-y-0.5 transition-transform duration-500"
           >
-            <span className="neu-icon-well h-9 w-9 rounded-xl">
+            <span className="neu-icon-well h-9 w-9 rounded-xl group-hover:scale-110 transition-transform duration-500">
               <ThemeIcon
                 key={theme}
                 className="h-4 w-4 text-primary animate-spin-in"
@@ -123,6 +140,7 @@ const Sidebar = () => {
               {themeLabel}
             </span>
           </button>
+
 
           {/* Footer */}
           <div className="neu-card p-4 text-center text-xs text-muted-foreground">
