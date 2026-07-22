@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { Play, ExternalLink, Youtube, AlertTriangle, RefreshCw, VideoOff } from "lucide-react";
 import VideoModal from "./VideoModal";
+import { useVideoStore, type StoredVideo } from "@/hooks/useVideoStore";
 
-interface Video {
-  id: string;
-  title: string;
-  description: string;
-  embedUrl: string;
-}
+type Video = StoredVideo;
 
 interface VideoShowcaseProps {
   videos?: Video[];
@@ -16,32 +12,6 @@ interface VideoShowcaseProps {
   onRetry?: () => void;
 }
 
-const defaultVideos: Video[] = [
-  {
-    id: "apok4v8Pzow",
-    title: "Fire Within — Official Track",
-    description: "A powerful original rap track showcasing lyrical prowess and intense energy.",
-    embedUrl: "https://www.youtube.com/embed/apok4v8Pzow",
-  },
-  {
-    id: "xftcj39h-QY",
-    title: "Raat Ka Banda — Epic Edit",
-    description: "Cinematic visuals with strong vibes, creative editing and atmospheric storytelling.",
-    embedUrl: "https://www.youtube.com/embed/xftcj39h-QY",
-  },
-  {
-    id: "F4ctUpMRP4w",
-    title: "Echoes in the Storm",
-    description: "An atmospheric masterpiece combining powerful lyrics with storm-like energy.",
-    embedUrl: "https://www.youtube.com/embed/F4ctUpMRP4w",
-  },
-  {
-    id: "b63MnxqG9-c",
-    title: "Nextup Studio Official Trailer",
-    description: "The official trailer showcasing the creative vision of Nextup Studio.",
-    embedUrl: "https://www.youtube.com/embed/b63MnxqG9-c",
-  },
-];
 
 const VideoSkeleton = ({ delay = 0 }: { delay?: number }) => (
   <div className="neu-card p-4 animate-fade-in" style={{ animationDelay: `${delay}ms` }}>
@@ -126,12 +96,15 @@ const VideoCard = ({ v, i, onPlay }: { v: Video; i: number; onPlay: (v: Video) =
 };
 
 const VideoShowcase = ({
-  videos = defaultVideos,
+  videos,
   isLoading = false,
   error = null,
   onRetry,
 }: VideoShowcaseProps) => {
-  const isEmpty = !isLoading && !error && videos.length === 0;
+  const { videos: stored } = useVideoStore();
+  const list = videos ?? stored;
+  const isEmpty = !isLoading && !error && list.length === 0;
+
   const [active, setActive] = useState<Video | null>(null);
 
   return (
