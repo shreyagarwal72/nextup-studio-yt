@@ -256,10 +256,9 @@ const Admin = () => {
                         <>
                           <button
                             onClick={() => saveEdit(v.id)}
-                            aria-label="Save"
-                            className="neu-btn-primary h-9 w-9 flex items-center justify-center"
+                            className="neu-btn-primary px-3 h-9 inline-flex items-center gap-1.5 text-xs font-semibold"
                           >
-                            <Save className="h-4 w-4" />
+                            <Save className="h-3.5 w-3.5" /> Save
                           </button>
                           <button
                             onClick={() => setEditingId(null)}
