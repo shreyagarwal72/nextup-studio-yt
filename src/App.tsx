@@ -9,6 +9,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
 import YouTubePage from "./pages/YouTube";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Sidebar from "./components/Sidebar";
 
@@ -22,12 +23,14 @@ const AnimatedRoutes = () => {
       <Routes location={location}>
         <Route path="/" element={<Index />} />
         <Route path="/youtube" element={<YouTubePage />} />
+        <Route path="/admin" element={<Admin />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </PageTransition>
   );
 };
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
